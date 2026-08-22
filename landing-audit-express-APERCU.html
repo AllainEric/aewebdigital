@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apercu : Audit Express gratuit - AE Web Digital</title>
+<style>body{margin:0;padding:0;}</style>
+</head>
+<body>
+<!--
+==========================================================================
+  AE WEB DIGITAL - LANDING PAGE "AUDIT EXPRESS GRATUIT"
+  Bloc HTML autonome pour WordPress + theme Astra
+  --------------------------------------------------------------------
+  MODE D'EMPLOI RAPIDE
+  1. WordPress > Pages > Ajouter
+  2. Reglages de la page (colonne de droite) > Astra > Mise en page :
+     "Pleine largeur / Etiree" + "Desactiver le titre"
+  3. Ajouter un bloc "HTML personnalise"
+  4. Coller L'INTEGRALITE de ce fichier dedans
+  5. Publier
+
+  3 CHOSES A PERSONNALISER AVANT PUBLICATION (chercher "A MODIFIER") :
+  - AEWD_CALENDLY  : ton lien Calendly (deja prerempli)
+  - AEWD_WEBHOOK   : ton webhook Make pour capter l'email meme sans reservation
+  - La photo du hero (URL de ton image)
+==========================================================================
+-->
+
+<style>
+/* ==========================================================================
+   TOUT EST PREFIXE .aewd- ET SCOPE DANS .aewd-lp
+   pour ne jamais entrer en conflit avec les styles du theme Astra
+   ========================================================================== */
+
+.aewd-lp {
+  --aewd-bleu:      #0553B0;
+  --aewd-navy:      #0A1628;
+  --aewd-cyan:      #50C7DD;
+  --aewd-jaune:     #FCF944;
+  --aewd-blanc:     #FFFFFF;
+  --aewd-gris:      #F5F7FA;
+  --aewd-gris-bord: #E3E8EF;
+  --aewd-texte:     #2B3648;
+  --aewd-texte-doux:#5A6779;
+
+  --aewd-r-sm: 10px;
+  --aewd-r-md: 18px;
+  --aewd-r-lg: 28px;
+  --aewd-r-pill: 999px;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--aewd-texte);
+  background: var(--aewd-blanc);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.aewd-lp *,
+.aewd-lp *::before,
+.aewd-lp *::after { box-sizing: border-box; }
+
+.aewd-lp p,
+.aewd-lp h1,
+.aewd-lp h2,
+.aewd-lp h3,
+.aewd-lp ul,
+.aewd-lp li { margin: 0; padding: 0; }
+
+.aewd-lp ul { list-style: none; }
+.aewd-lp img { max-width: 100%; display: block; }
+
+/* ---------- Layout ---------- */
+.aewd-container { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.aewd-container--etroit { max-width: 760px; }
+.aewd-section { padding: 88px 0; }
+.aewd-section--gris { background: var(--aewd-gris); }
+.aewd-section--bleu {
+  background: linear-gradient(160deg, var(--aewd-bleu) 0%, var(--aewd-navy) 100%);
+  color: var(--aewd-blanc);
+}
+
+/* ---------- Typographie ---------- */
+.aewd-lp h1 {
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.aewd-lp h2 {
+  font-size: clamp(25px, 3.6vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--aewd-bleu);
+}
+.aewd-section--bleu h2 { color: var(--aewd-blanc); }
+.aewd-lp h3 { font-size: 19px; font-weight: 700; line-height: 1.35; color: var(--aewd-navy); }
+
+.aewd-surtitre {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--aewd-cyan);
+  margin-bottom: 14px;
+}
+.aewd-section:not(.aewd-section--bleu) .aewd-surtitre { color: var(--aewd-bleu); }
+
+.aewd-lead { font-size: clamp(17px, 2vw, 20px); line-height: 1.65; }
+.aewd-jaune { color: var(--aewd-jaune); }
+.aewd-doux { color: var(--aewd-texte-doux); }
+
+/* ---------- Boutons ---------- */
+.aewd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 17px 34px;
+  border: none;
+  border-radius: var(--aewd-r-pill);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s cubic-bezier(.16,1,.3,1), box-shadow .2s, background .2s;
+}
+.aewd-btn--jaune {
+  background: var(--aewd-jaune);
+  color: var(--aewd-navy);
+  box-shadow: 0 10px 30px rgba(252,249,68,.28);
+}
+.aewd-btn--jaune:hover {
+  background: #FFFB7A;
+  color: var(--aewd-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(252,249,68,.4);
+  text-decoration: none;
+}
+.aewd-btn--pleine { width: 100%; }
+
+/* ---------- Hero ---------- */
+.aewd-hero {
+  position: relative;
+  background: linear-gradient(155deg, var(--aewd-bleu) 0%, var(--aewd-navy) 100%);
+  color: var(--aewd-blanc);
+  padding: 92px 0 80px;
+  overflow: hidden;
+}
+.aewd-hero::before {
+  content: '';
+  position: absolute;
+  top: -220px; right: -160px;
+  width: 620px; height: 620px;
+  background: radial-gradient(circle, rgba(80,199,221,.30) 0%, transparent 68%);
+  pointer-events: none;
+}
+.aewd-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -260px; left: -180px;
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(252,249,68,.14) 0%, transparent 68%);
+  pointer-events: none;
+}
+.aewd-hero .aewd-container { position: relative; z-index: 2; }
+
+.aewd-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.aewd-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(80,199,221,.16);
+  border: 1px solid rgba(80,199,221,.42);
+  color: var(--aewd-cyan);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 7px 18px;
+  border-radius: var(--aewd-r-pill);
+  margin-bottom: 26px;
+}
+.aewd-badge::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--aewd-cyan);
+  box-shadow: 0 0 0 4px rgba(80,199,221,.25);
+}
+
+.aewd-hero h1 { color: var(--aewd-blanc); margin-bottom: 22px; }
+.aewd-hero .aewd-lead { color: rgba(255,255,255,.86); margin-bottom: 30px; max-width: 560px; }
+
+.aewd-puces { margin-bottom: 34px; }
+.aewd-puces li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16.5px;
+  color: rgba(255,255,255,.92);
+  padding: 6px 0;
+}
+.aewd-puces li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 21px; height: 21px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: var(--aewd-jaune);
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A1628' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 13px 13px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.aewd-hero-cta-zone { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.aewd-hero-micro { font-size: 14.5px; color: rgba(255,255,255,.62); }
+
+/* Carte visuelle du hero */
+.aewd-hero-carte {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: var(--aewd-r-lg);
+  padding: 30px 28px;
+  backdrop-filter: blur(6px);
+}
+.aewd-hero-carte h3 { color: var(--aewd-blanc); font-size: 16px; margin-bottom: 20px; }
+.aewd-mini-stat { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.13); }
+.aewd-mini-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.aewd-mini-stat b {
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--aewd-jaune);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.aewd-mini-stat span { font-size: 14.5px; color: rgba(255,255,255,.72); }
+
+/* ---------- Bandeau reassurance ---------- */
+.aewd-bandeau {
+  background: var(--aewd-navy);
+  padding: 22px 0;
+  border-top: 3px solid var(--aewd-jaune);
+}
+.aewd-bandeau ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 40px;
+}
+.aewd-bandeau li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+}
+.aewd-bandeau li::before { content: '\2726'; color: var(--aewd-jaune); font-size: 13px; }
+
+/* ---------- Probleme ---------- */
+.aewd-probleme p { font-size: 18px; margin-bottom: 20px; }
+.aewd-probleme p:last-child { margin-bottom: 0; }
+.aewd-probleme strong { color: var(--aewd-bleu); }
+.aewd-souligne {
+  background: linear-gradient(transparent 62%, rgba(252,249,68,.65) 62%);
+  font-weight: 700;
+}
+
+/* ---------- Cartes benefices ---------- */
+.aewd-cartes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 44px;
+}
+.aewd-carte {
+  background: var(--aewd-blanc);
+  border: 1px solid var(--aewd-gris-bord);
+  border-radius: var(--aewd-r-md);
+  padding: 32px 26px;
+  box-shadow: 0 4px 18px rgba(10,22,40,.05);
+  transition: transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s;
+}
+.aewd-carte:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(10,22,40,.1); }
+.aewd-carte-num {
+  width: 46px; height: 46px;
+  border-radius: 13px;
+  background: linear-gradient(140deg, var(--aewd-bleu), var(--aewd-cyan));
+  color: var(--aewd-blanc);
+  font-weight: 800;
+  font-size: 17px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.aewd-carte h3 { margin-bottom: 10px; }
+.aewd-carte p { font-size: 15.5px; color: var(--aewd-texte-doux); line-height: 1.6; }
+
+/* ---------- Etapes ---------- */
+.aewd-etapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 44px; }
+.aewd-etape { padding: 0 26px; border-left: 2px solid var(--aewd-gris-bord); position: relative; }
+.aewd-etape:first-child { border-left: none; padding-left: 0; }
+.aewd-etape:last-child { padding-right: 0; }
+.aewd-etape-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--aewd-cyan);
+  background: rgba(80,199,221,.12);
+  padding: 5px 13px;
+  border-radius: var(--aewd-r-pill);
+  margin-bottom: 16px;
+}
+.aewd-etape h3 { margin-bottom: 10px; }
+.aewd-etape p { font-size: 15.5px; color: var(--aewd-texte-doux); }
+
+/* ---------- Preuve ---------- */
+.aewd-preuve-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 44px; align-items: center; }
+.aewd-stat-bloc {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: var(--aewd-r-lg);
+  padding: 38px 30px;
+  text-align: center;
+}
+.aewd-stat-chiffre {
+  font-size: clamp(52px, 8vw, 76px);
+  font-weight: 800;
+  color: var(--aewd-jaune);
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+.aewd-stat-label { font-size: 16px; color: rgba(255,255,255,.82); margin-top: 12px; }
+
+.aewd-citation {
+  font-size: clamp(19px, 2.4vw, 24px);
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--aewd-blanc);
+  margin-bottom: 22px;
+}
+.aewd-citation::before { content: '\00AB\0020'; color: var(--aewd-jaune); }
+.aewd-citation::after  { content: '\0020\00BB'; color: var(--aewd-jaune); }
+.aewd-signature { font-size: 15px; color: rgba(255,255,255,.68); }
+.aewd-nps {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  background: rgba(252,249,68,.14);
+  border: 1px solid rgba(252,249,68,.35);
+  color: var(--aewd-jaune);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: var(--aewd-r-pill);
+}
+
+/* ---------- Pour qui / pas pour qui ---------- */
+.aewd-qui { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
+.aewd-qui-carte {
+  background: var(--aewd-blanc);
+  border: 2px solid var(--aewd-gris-bord);
+  border-radius: var(--aewd-r-md);
+  padding: 30px 26px;
+}
+.aewd-qui-carte--oui { border-color: var(--aewd-bleu); }
+.aewd-qui-titre {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.aewd-qui-carte--oui .aewd-qui-titre { color: var(--aewd-bleu); }
+.aewd-qui-carte--non .aewd-qui-titre { color: var(--aewd-texte-doux); }
+.aewd-qui-carte li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15.5px;
+  line-height: 1.5;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--aewd-gris-bord);
+}
+.aewd-qui-carte li:last-child { border-bottom: none; padding-bottom: 0; }
+.aewd-qui-carte li::before { flex-shrink: 0; font-weight: 800; font-size: 15px; margin-top: 1px; }
+.aewd-qui-carte--oui li::before { content: '\2713'; color: var(--aewd-bleu); }
+.aewd-qui-carte--non li::before { content: '\2715'; color: #B6BFCC; }
+
+/* ---------- FAQ ---------- */
+.aewd-faq { margin-top: 40px; }
+.aewd-faq details {
+  border: 1px solid var(--aewd-gris-bord);
+  border-radius: var(--aewd-r-sm);
+  margin-bottom: 12px;
+  background: var(--aewd-blanc);
+  overflow: hidden;
+}
+.aewd-faq details[open] { border-color: var(--aewd-cyan); }
+.aewd-faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 54px 20px 22px;
+  font-weight: 700;
+  font-size: 16.5px;
+  color: var(--aewd-navy);
+  position: relative;
+}
+.aewd-faq summary::-webkit-details-marker { display: none; }
+.aewd-faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 22px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--aewd-bleu);
+  line-height: 1;
+}
+.aewd-faq details[open] summary::after { content: '\2212'; }
+.aewd-faq-rep { padding: 0 22px 22px; font-size: 16px; color: var(--aewd-texte-doux); }
+
+/* ---------- Formulaire ---------- */
+.aewd-form-carte {
+  background: var(--aewd-blanc);
+  border-radius: var(--aewd-r-lg);
+  padding: 36px 32px 28px;
+  box-shadow: 0 18px 50px rgba(5,22,40,.28);
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: left;
+}
+.aewd-form-titre {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--aewd-navy);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.aewd-form-sous { font-size: 14.5px; color: var(--aewd-texte-doux); text-align: center; margin-bottom: 24px; }
+.aewd-champ-label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--aewd-navy);
+  margin-bottom: 6px;
+}
+.aewd-champ {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--aewd-gris-bord);
+  border-radius: var(--aewd-r-sm);
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--aewd-texte);
+  background: var(--aewd-blanc);
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+}
+.aewd-champ:focus { border-color: var(--aewd-bleu); box-shadow: 0 0 0 3px rgba(5,83,176,.13); }
+select.aewd-champ { appearance: none; background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230553B0' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 42px; }
+.aewd-form-micro { font-size: 13px; color: var(--aewd-texte-doux); text-align: center; margin-top: 14px; line-height: 1.5; }
+.aewd-form-erreur { display: none; font-size: 14px; color: #C0392B; font-weight: 600; text-align: center; margin-top: 12px; }
+
+/* ---------- Bouton flottant mobile ---------- */
+.aewd-sticky {
+  position: fixed;
+  left: 16px; right: 16px; bottom: 16px;
+  z-index: 9998;
+  display: none;
+}
+.aewd-sticky .aewd-btn { width: 100%; padding: 16px 20px; font-size: 16px; }
+
+/* ---------- Footer ---------- */
+.aewd-footer { background: var(--aewd-navy); padding: 34px 0; text-align: center; }
+.aewd-footer p { font-size: 14px; color: rgba(255,255,255,.5); }
+.aewd-footer a { color: var(--aewd-cyan); text-decoration: none; }
+.aewd-footer b { color: var(--aewd-blanc); }
+
+/* ---------- Animations ---------- */
+@keyframes aewdFadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+.aewd-anim { animation: aewdFadeUp .6s cubic-bezier(.16,1,.3,1) both; }
+.aewd-anim-2 { animation-delay: .1s; }
+.aewd-anim-3 { animation-delay: .2s; }
+.aewd-anim-4 { animation-delay: .3s; }
+@media (prefers-reduced-motion: reduce) {
+  .aewd-lp *, .aewd-lp *::before, .aewd-lp *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .aewd-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .aewd-preuve-grid { grid-template-columns: 1fr; gap: 32px; }
+  .aewd-cartes { grid-template-columns: 1fr; }
+  .aewd-etapes { grid-template-columns: 1fr; gap: 28px; }
+  .aewd-etape { border-left: none; border-top: 2px solid var(--aewd-gris-bord); padding: 24px 0 0; }
+  .aewd-etape:first-child { border-top: none; padding-top: 0; }
+}
+@media (max-width: 680px) {
+  .aewd-lp { font-size: 16px; }
+  .aewd-section { padding: 60px 0; }
+  .aewd-hero { padding: 68px 0 60px; }
+  .aewd-qui { grid-template-columns: 1fr; }
+  .aewd-btn { width: 100%; }
+  .aewd-hero-cta-zone { flex-direction: column; align-items: stretch; text-align: center; }
+  .aewd-form-carte { padding: 28px 20px 22px; }
+  .aewd-sticky { display: block; }
+  .aewd-lp { padding-bottom: 84px; }
+}
+</style>
+
+
+<div class="aewd-lp">
+
+  <!-- =================== HERO =================== -->
+  <section class="aewd-hero">
+    <div class="aewd-container">
+      <div class="aewd-hero-grid">
+
+        <div>
+          <div class="aewd-badge aewd-anim">Audit Express &#183; 30 minutes &#183; 0 &#8364;</div>
+
+          <h1 class="aewd-anim aewd-anim-2">
+            En 30 minutes, sachez exactement o&#249; votre entreprise
+            <span class="aewd-jaune">perd du temps et de l'argent</span>
+            &#224; cause du digital.
+          </h1>
+
+          <p class="aewd-lead aewd-anim aewd-anim-3">
+            Un appel de 30 minutes avec un consultant qui a dirig&#233; ses propres
+            entreprises pendant 15 ans. Vous repartez avec 3 actions concr&#232;tes,
+            applicables d&#232;s cette semaine. Sans budget, sans comp&#233;tence technique.
+          </p>
+
+          <ul class="aewd-puces aewd-anim aewd-anim-3">
+            <li>Aucune vente pendant l'appel. Les 30 minutes servent &#224; vous, pas &#224; moi.</li>
+            <li>3 actions &#233;crites, chiffr&#233;es, que vous pouvez lancer seul le lendemain.</li>
+            <li>Un cr&#233;neau &#224; votre heure, y compris avant 8h ou apr&#232;s 18h.</li>
+          </ul>
+
+          <div class="aewd-hero-cta-zone aewd-anim aewd-anim-4">
+            <a href="#aewd-reserver" class="aewd-btn aewd-btn--jaune">R&#233;server mon Audit Express &rarr;</a>
+            <span class="aewd-hero-micro">Gratuit, sans engagement, 30 min chrono</span>
+          </div>
+        </div>
+
+        <div class="aewd-hero-carte aewd-anim aewd-anim-4">
+          <h3>Ce que je fais depuis 20 ans</h3>
+          <div class="aewd-mini-stat">
+            <b>200</b>
+            <span>dirigeants de TPE accompagn&#233;s</span>
+          </div>
+          <div class="aewd-mini-stat">
+            <b>15 ans</b>
+            <span>&#224; diriger mes propres entreprises, jusqu'&#224; 15 salari&#233;s</span>
+          </div>
+          <div class="aewd-mini-stat">
+            <b>9h</b>
+            <span>r&#233;cup&#233;r&#233;es chaque semaine par ma derni&#232;re cliente</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== BANDEAU REASSURANCE =================== -->
+  <div class="aewd-bandeau">
+    <div class="aewd-container">
+      <ul>
+        <li>30 minutes, pas une de plus</li>
+        <li>100 % gratuit, aucune carte demand&#233;e</li>
+        <li>En visio, depuis votre bureau</li>
+        <li>Z&#233;ro jargon technique</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- =================== PROBLEME =================== -->
+  <section class="aewd-section aewd-probleme">
+    <div class="aewd-container aewd-container--etroit">
+      <span class="aewd-surtitre">Le vrai probl&#232;me</span>
+      <h2 style="margin-bottom:28px;">Votre entreprise tourne. Mais vous passez vos soir&#233;es &#224; rattraper la journ&#233;e.</h2>
+
+      <p>
+        Vous relancez les devis &#224; la main, quand vous y pensez. Vous ressaisissez
+        les m&#234;mes informations dans trois outils diff&#233;rents. Vous r&#233;pondez aux
+        m&#234;mes questions clients quinze fois par semaine.
+      </p>
+      <p>
+        Ce n'est pas un probl&#232;me de motivation. C'est un probl&#232;me d'organisation.
+        Personne ne vous a jamais montr&#233; comment structurer tout &#231;a, alors vous
+        compensez avec vos heures. <strong>Et les heures, elles, ne reviennent pas.</strong>
+      </p>
+      <p>
+        Le co&#251;t r&#233;el se voit ailleurs : dans les devis partis sans relance, dans
+        les demandes clients tomb&#233;es &#224; c&#244;t&#233;, dans les t&#226;ches que vos salari&#233;s
+        font &#224; la main pendant que le vrai travail attend.
+        <span class="aewd-souligne">Un devis non relanc&#233;, c'est du chiffre d'affaires d&#233;j&#224; perdu.</span>
+      </p>
+      <p>
+        Vous le savez d&#233;j&#224;. C'est probablement pour &#231;a que vous &#234;tes sur cette page.
+        La question n'est pas de savoir s'il faut agir, mais par o&#249; commencer,
+        sans y engloutir un budget ni trois mois.
+      </p>
+    </div>
+  </section>
+
+  <!-- =================== CE QUE VOUS OBTENEZ =================== -->
+  <section class="aewd-section aewd-section--gris">
+    <div class="aewd-container">
+      <div class="aewd-container--etroit" style="padding:0;">
+        <span class="aewd-surtitre">L'Audit Express</span>
+        <h2>Ce que vous avez en main &#224; la fin des 30 minutes</h2>
+      </div>
+
+      <div class="aewd-cartes">
+        <article class="aewd-carte">
+          <div class="aewd-carte-num">01</div>
+          <h3>Vos heures perdues, chiffr&#233;es</h3>
+          <p>
+            On identifie ensemble les 2 ou 3 t&#226;ches qui vous co&#251;tent le plus
+            d'heures chaque semaine, vous et votre &#233;quipe. Chiffr&#233;es en heures,
+            pas en impressions.
+          </p>
+        </article>
+
+        <article class="aewd-carte">
+          <div class="aewd-carte-num">02</div>
+          <h3>Le chiffre d'affaires qui vous &#233;chappe</h3>
+          <p>
+            On rep&#232;re les endroits pr&#233;cis o&#249; des demandes, des devis ou des
+            clients vous filent entre les doigts faute de suivi. C'est souvent
+            l&#224; que se trouve l'argent le plus facile &#224; r&#233;cup&#233;rer.
+          </p>
+        </article>
+
+        <article class="aewd-carte">
+          <div class="aewd-carte-num">03</div>
+          <h3>3 actions &#224; lancer cette semaine</h3>
+          <p>
+            Vous repartez avec trois actions pr&#233;cises, hi&#233;rarchis&#233;es, r&#233;alisables
+            sans budget et sans comp&#233;tence technique. Vous pouvez les mettre en
+            place seul d&#232;s le lendemain.
+          </p>
+        </article>
+      </div>
+
+      <div style="text-align:center;margin-top:48px;">
+        <a href="#aewd-reserver" class="aewd-btn aewd-btn--jaune" style="background:var(--aewd-bleu);color:#fff;box-shadow:0 10px 30px rgba(5,83,176,.28);">
+          Je r&#233;serve mes 30 minutes &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== COMMENT CA SE PASSE =================== -->
+  <section class="aewd-section">
+    <div class="aewd-container">
+      <div class="aewd-container--etroit" style="padding:0;">
+        <span class="aewd-surtitre">Le d&#233;roul&#233;</span>
+        <h2>Trois &#233;tapes, aucune surprise</h2>
+      </div>
+
+      <div class="aewd-etapes">
+        <div class="aewd-etape">
+          <span class="aewd-etape-tag">Avant</span>
+          <h3>Vous choisissez votre cr&#233;neau</h3>
+          <p>
+            Deux minutes pour remplir le formulaire, puis vous prenez le cr&#233;neau
+            qui vous arrange dans mon agenda. Vous recevez le lien visio par email.
+            Rien &#224; pr&#233;parer, rien &#224; installer.
+          </p>
+        </div>
+
+        <div class="aewd-etape">
+          <span class="aewd-etape-tag">Pendant</span>
+          <h3>30 minutes de questions cibl&#233;es</h3>
+          <p>
+            Je vous pose des questions sur votre organisation actuelle : comment
+            arrivent vos demandes, qui fait quoi, o&#249; &#231;a coince. Pas de
+            pr&#233;sentation commerciale, pas de diapositives. Que du concret.
+          </p>
+        </div>
+
+        <div class="aewd-etape">
+          <span class="aewd-etape-tag">Apr&#232;s</span>
+          <h3>Vous recevez vos 3 actions par &#233;crit</h3>
+          <p>
+            Dans les 24 heures, je vous envoie par email la synth&#232;se et les trois
+            actions prioritaires. Vous les appliquez seul si vous le souhaitez.
+            Si vous voulez aller plus loin, on en reparle. Sinon, on en reste l&#224;.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== PREUVE =================== -->
+  <section class="aewd-section aewd-section--bleu">
+    <div class="aewd-container">
+      <div class="aewd-preuve-grid">
+
+        <div class="aewd-stat-bloc">
+          <div class="aewd-stat-chiffre">9h</div>
+          <div class="aewd-stat-label">r&#233;cup&#233;r&#233;es chaque semaine,<br>soit plus d'une journ&#233;e de travail</div>
+        </div>
+
+        <div>
+          <span class="aewd-surtitre">Un r&#233;sultat concret</span>
+          <p class="aewd-citation">
+            Je passais mes dimanches soirs &#224; relancer mes devis et &#224; rattraper
+            ma comptabilit&#233;. Aujourd'hui c'est automatique et je r&#233;cup&#232;re mes
+            week-ends. Je n'y connaissais rien en informatique.
+          </p>
+          <p class="aewd-signature">
+            Dirigeante d'une TPE de 6 salari&#233;s, accompagn&#233;e en 2026.
+            T&#233;moignage anonymis&#233; &#224; sa demande.
+          </p>
+          <div class="aewd-nps">Satisfaction client mesur&#233;e : 78 / 80</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== POUR QUI / PAS POUR QUI =================== -->
+  <section class="aewd-section aewd-section--gris">
+    <div class="aewd-container">
+      <div class="aewd-container--etroit" style="padding:0;">
+        <span class="aewd-surtitre">Soyons clairs</span>
+        <h2>Cet audit n'est pas fait pour tout le monde</h2>
+      </div>
+
+      <div class="aewd-qui">
+        <div class="aewd-qui-carte aewd-qui-carte--oui">
+          <div class="aewd-qui-titre">C'est pour vous si</div>
+          <ul>
+            <li>Vous dirigez une TPE de 1 &#224; 10 salari&#233;s, ou vous &#234;tes artisan ou commer&#231;ant.</li>
+            <li>Vous perdez des heures chaque semaine sur des t&#226;ches r&#233;p&#233;titives.</li>
+            <li>Vous envoyez des devis ou des propositions sans syst&#232;me de relance.</li>
+            <li>Vous avez des outils num&#233;riques, mais ils ne se parlent pas entre eux.</li>
+            <li>Vous voulez lib&#233;rer votre &#233;quipe de la saisie pour la remettre sur le terrain.</li>
+          </ul>
+        </div>
+
+        <div class="aewd-qui-carte aewd-qui-carte--non">
+          <div class="aewd-qui-titre">Ce n'est pas pour vous si</div>
+          <ul>
+            <li>Vous cherchez uniquement un site vitrine ou un logo. Ce n'est pas mon m&#233;tier.</li>
+            <li>Vous voulez un devis chiffr&#233; sans parler de votre organisation.</li>
+            <li>Vous avez d&#233;j&#224; une &#233;quipe interne qui pilote votre digital.</li>
+            <li>Vous cherchez une solution miracle sans rien changer &#224; vos habitudes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== FAQ / OBJECTIONS =================== -->
+  <section class="aewd-section">
+    <div class="aewd-container aewd-container--etroit">
+      <span class="aewd-surtitre">Vos questions</span>
+      <h2>Les 5 questions qu'on me pose avant de r&#233;server</h2>
+
+      <div class="aewd-faq">
+
+        <details open>
+          <summary>C'est vraiment gratuit, o&#249; est le pi&#232;ge ?</summary>
+          <div class="aewd-faq-rep">
+            Il n'y en a pas. Ces 30 minutes ne sont jamais factur&#233;es, &#224; personne.
+            Mon int&#233;r&#234;t est simple : sur dix dirigeants que j'aide gratuitement,
+            un ou deux d&#233;cident ensuite de travailler avec moi. Les huit autres
+            repartent avec leurs 3 actions et c'est tr&#232;s bien comme &#231;a.
+          </div>
+        </details>
+
+        <details>
+          <summary>Je n'ai pas 30 minutes &#224; perdre en ce moment.</summary>
+          <div class="aewd-faq-rep">
+            C'est pr&#233;cis&#233;ment le sympt&#244;me. Vous choisissez votre cr&#233;neau dans mon
+            agenda, y compris &#224; 7h30 le matin ou &#224; 18h30 le soir. Et l'appel
+            s'arr&#234;te &#224; la trenti&#232;me minute, je ne d&#233;borde jamais.
+          </div>
+        </details>
+
+        <details>
+          <summary>Je n'y connais rien en informatique, je vais &#234;tre perdu.</summary>
+          <div class="aewd-faq-rep">
+            Aucun pr&#233;requis technique. Je ne parle ni d'API, ni de serveurs, ni
+            d'intelligence artificielle. Je vous pose des questions sur votre
+            organisation : qui fait quoi, comment arrivent vos demandes, o&#249; &#231;a
+            bloque. Ce sont des sujets que vous ma&#238;trisez mieux que moi.
+          </div>
+        </details>
+
+        <details>
+          <summary>Est-ce que vous allez essayer de me vendre quelque chose ?</summary>
+          <div class="aewd-faq-rep">
+            Pas pendant l'appel. Les 30 minutes sont consacr&#233;es &#224; votre situation.
+            Si &#224; la fin vous souhaitez aller plus loin, je vous explique comment
+            je travaille et ce que &#231;a co&#251;te. Si vous ne le demandez pas, je n'en
+            parle pas.
+          </div>
+        </details>
+
+        <details>
+          <summary>Ma bo&#238;te est trop petite, &#231;a ne vaut pas le coup.</summary>
+          <div class="aewd-faq-rep">
+            Les entreprises de 1 &#224; 10 salari&#233;s sont exactement celles avec qui je
+            travaille depuis 20 ans. Ce sont aussi celles o&#249; l'impact est le plus
+            rapide, parce qu'il n'y a personne d'autre pour absorber les t&#226;ches
+            r&#233;p&#233;titives. Chaque heure r&#233;cup&#233;r&#233;e compte double.
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== CTA FINAL + FORMULAIRE =================== -->
+  <section class="aewd-section aewd-section--bleu" id="aewd-reserver">
+    <div class="aewd-container aewd-container--etroit" style="text-align:center;">
+
+      <span class="aewd-surtitre">Derni&#232;re &#233;tape</span>
+      <h2 style="margin-bottom:16px;">
+        Trente minutes maintenant,
+        <span class="aewd-jaune">ou encore six mois &#224; compenser avec vos soir&#233;es.</span>
+      </h2>
+      <p class="aewd-lead" style="color:rgba(255,255,255,.85);margin:0 auto 42px;max-width:600px;">
+        Remplissez ces quatre champs, choisissez votre cr&#233;neau, et venez avec
+        vos vraies questions. Vous repartez avec trois actions, quoi qu'il arrive.
+      </p>
+
+      <form class="aewd-form-carte" id="aewd-form" novalidate>
+        <p class="aewd-form-titre">R&#233;server mon Audit Express</p>
+        <p class="aewd-form-sous">Gratuit &#183; 30 minutes &#183; Aucun engagement</p>
+
+        <label class="aewd-champ-label" for="aewd-prenom">Pr&#233;nom</label>
+        <input type="text" id="aewd-prenom" name="prenom" class="aewd-champ" placeholder="Votre pr&#233;nom" required autocomplete="given-name">
+
+        <label class="aewd-champ-label" for="aewd-email">Email professionnel</label>
+        <input type="email" id="aewd-email" name="email" class="aewd-champ" placeholder="vous@votre-entreprise.fr" required autocomplete="email">
+
+        <label class="aewd-champ-label" for="aewd-entreprise">Nom de votre entreprise</label>
+        <input type="text" id="aewd-entreprise" name="entreprise" class="aewd-champ" placeholder="Votre entreprise" required autocomplete="organization">
+
+        <label class="aewd-champ-label" for="aewd-blocage">Ce qui vous co&#251;te le plus de temps aujourd'hui</label>
+        <select id="aewd-blocage" name="blocage" class="aewd-champ" required>
+          <option value="">Choisissez votre principal blocage</option>
+          <option>Les devis et propositions sans relance</option>
+          <option>La saisie et la ressaisie d'informations</option>
+          <option>Le suivi des clients et des demandes</option>
+          <option>La facturation et l'administratif</option>
+          <option>La prise de rendez-vous et la planification</option>
+          <option>Je ne sais pas encore, c'est le probl&#232;me</option>
+        </select>
+
+        <button type="submit" class="aewd-btn aewd-btn--jaune aewd-btn--pleine" id="aewd-submit">
+          Choisir mon cr&#233;neau &rarr;
+        </button>
+
+        <p class="aewd-form-erreur" id="aewd-erreur">Merci de remplir les quatre champs pour continuer.</p>
+
+        <p class="aewd-form-micro">
+          Vos informations servent uniquement &#224; pr&#233;parer l'appel.
+          Aucune revente, aucun envoi commercial automatique.
+        </p>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- =================== FOOTER =================== -->
+  <footer class="aewd-footer">
+    <div class="aewd-container">
+      <p>
+        <b>AE WEB DIGITAL</b> &#183; Cr&#233;er &middot; Innover &middot; D&#233;velopper<br>
+        &#201;ric Allain, consultant en transition num&#233;rique pour TPE &#183; Paris 75014 &#183;
+        <a href="mailto:contact@aewebdigital.com">contact@aewebdigital.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- =================== BOUTON FLOTTANT MOBILE =================== -->
+  <div class="aewd-sticky">
+    <a href="#aewd-reserver" class="aewd-btn aewd-btn--jaune">R&#233;server mon Audit Express gratuit</a>
+  </div>
+
+</div>
+
+
+<script>
+(function () {
+  /* ======================================================================
+     A MODIFIER : les deux constantes ci-dessous
+     ====================================================================== */
+
+  // 1. Ton lien Calendly Audit Express
+  var AEWD_CALENDLY = "https://calendly.com/allaineric/decouverte";
+
+  // 2. Ton webhook Make (Scenario > module "Webhooks > Custom webhook").
+  //    Laisse la chaine vide "" si tu ne veux pas capter les emails pour l'instant.
+  //    Avec un webhook, tu recuperes le lead MEME s'il ne reserve pas de creneau.
+  var AEWD_WEBHOOK = "";
+
+  /* ====================================================================== */
+
+  var form   = document.getElementById("aewd-form");
+  var erreur = document.getElementById("aewd-erreur");
+  var bouton = document.getElementById("aewd-submit");
+  if (!form) return;
+
+  function allerVersCalendly(donnees) {
+    var url = AEWD_CALENDLY
+      + (AEWD_CALENDLY.indexOf("?") === -1 ? "?" : "&")
+      + "name="  + encodeURIComponent(donnees.prenom)
+      + "&email=" + encodeURIComponent(donnees.email)
+      + "&a1="    + encodeURIComponent(donnees.entreprise + " | " + donnees.blocage);
+    window.location.href = url;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var donnees = {
+      prenom:     document.getElementById("aewd-prenom").value.trim(),
+      email:      document.getElementById("aewd-email").value.trim(),
+      entreprise: document.getElementById("aewd-entreprise").value.trim(),
+      blocage:    document.getElementById("aewd-blocage").value,
+      source:     "landing-audit-express",
+      page:       window.location.href
+    };
+
+    var emailValide = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donnees.email);
+    if (!donnees.prenom || !emailValide || !donnees.entreprise || !donnees.blocage) {
+      erreur.style.display = "block";
+      return;
+    }
+    erreur.style.display = "none";
+    bouton.textContent = "Un instant...";
+    bouton.disabled = true;
+
+    // Suivi de conversion Google Analytics 4, si gtag est present
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "generate_lead", { method: "landing_audit_express" });
+    }
+
+    if (!AEWD_WEBHOOK) { allerVersCalendly(donnees); return; }
+
+    // On envoie au webhook, puis on redirige quoi qu'il arrive (jamais de blocage du prospect)
+    var redirige = false;
+    var basculer = function () { if (!redirige) { redirige = true; allerVersCalendly(donnees); } };
+    setTimeout(basculer, 2500);
+
+    fetch(AEWD_WEBHOOK, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(donnees)
+    }).then(basculer).catch(basculer);
+  });
+
+  // Masquer le bouton flottant quand le formulaire est visible
+  var cible = document.getElementById("aewd-reserver");
+  var sticky = document.querySelector(".aewd-sticky");
+  if (cible && sticky && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entrees) {
+      sticky.style.opacity = entrees[0].isIntersecting ? "0" : "1";
+      sticky.style.pointerEvents = entrees[0].isIntersecting ? "none" : "auto";
+    }, { threshold: 0.15 }).observe(cible);
+    sticky.style.transition = "opacity .25s";
+  }
+})();
+</script>
+
+</body>
+</html>
