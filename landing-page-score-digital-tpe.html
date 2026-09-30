@@ -683,9 +683,9 @@
       <!-- ══ FORMULAIRE BREVO — Hero (liste « Score Digital TPE ») ══ -->
       <div class="optin-card">
         <p class="optin-card__title">🎯 Reçois ton Diagnostic digital TPE, gratuit</p>
-        <form action="https://2d4ab6c8.sibforms.com/serve/MUIFAHF5J0X5xflgoclWs8QHt_fsMiyV0WXy-1aykqZqFPRv3icNjGVDXuWXpaZqjMqOH2hsni1uj2Gay0145NCee-L4nuuj4yZ52krtaWikyNuP4CHtaKxjYgCjJcrlAorSbBiiKFoLjkGKjrHEmQeZFM-I8ojzl-DyVlorJQ7FhY-ysM4hkOzVmTRdLGRuel9J9HQHaAjJwKofiA==" method="POST" target="_blank">
-          <input type="text"  name="FIRSTNAME" class="field" placeholder="Ton prénom">
-          <input type="email" name="EMAIL"     class="field" placeholder="Ton adresse email" required>
+        <form action="https://2d4ab6c8.sibforms.com/serve/MUIFAHF5J0X5xflgoclWs8QHt_fsMiyV0WXy-1aykqZqFPRv3icNjGVDXuWXpaZqjMqOH2hsni1uj2Gay0145NCee-L4nuuj4yZ52krtaWikyNuP4CHtaKxjYgCjJcrlAorSbBiiKFoLjkGKjrHEmQeZFM-I8ojzl-DyVlorJQ7FhY-ysM4hkOzVmTRdLGRuel9J9HQHaAjJwKofiA==" method="POST" class="js-brevo-form" novalidate>
+          <input type="text"  name="PRENOM" class="field" placeholder="Ton prénom" required autocomplete="given-name">
+          <input type="email" name="EMAIL"     class="field" placeholder="Ton adresse email" required autocomplete="email">
           <input type="hidden" name="email_address_check" value="">
           <input type="hidden" name="locale" value="fr">
           <button type="submit" class="btn btn--yellow">Envoie-moi mon Diagnostic Gratuit →</button>
@@ -936,9 +936,9 @@
       <!-- ══ FORMULAIRE BREVO — CTA Final (même URL que le formulaire Hero) ══ -->
       <div class="optin-card">
         <p class="optin-card__title">🎯 Oui, envoie-moi mon Diagnostic gratuit</p>
-        <form action="https://2d4ab6c8.sibforms.com/serve/MUIFAHF5J0X5xflgoclWs8QHt_fsMiyV0WXy-1aykqZqFPRv3icNjGVDXuWXpaZqjMqOH2hsni1uj2Gay0145NCee-L4nuuj4yZ52krtaWikyNuP4CHtaKxjYgCjJcrlAorSbBiiKFoLjkGKjrHEmQeZFM-I8ojzl-DyVlorJQ7FhY-ysM4hkOzVmTRdLGRuel9J9HQHaAjJwKofiA==" method="POST" target="_blank">
-          <input type="text"  name="FIRSTNAME" class="field" placeholder="Ton prénom">
-          <input type="email" name="EMAIL"     class="field" placeholder="Ton adresse email" required>
+        <form action="https://2d4ab6c8.sibforms.com/serve/MUIFAHF5J0X5xflgoclWs8QHt_fsMiyV0WXy-1aykqZqFPRv3icNjGVDXuWXpaZqjMqOH2hsni1uj2Gay0145NCee-L4nuuj4yZ52krtaWikyNuP4CHtaKxjYgCjJcrlAorSbBiiKFoLjkGKjrHEmQeZFM-I8ojzl-DyVlorJQ7FhY-ysM4hkOzVmTRdLGRuel9J9HQHaAjJwKofiA==" method="POST" class="js-brevo-form" novalidate>
+          <input type="text"  name="PRENOM" class="field" placeholder="Ton prénom" required autocomplete="given-name">
+          <input type="email" name="EMAIL"     class="field" placeholder="Ton adresse email" required autocomplete="email">
           <input type="hidden" name="email_address_check" value="">
           <input type="hidden" name="locale" value="fr">
           <button type="submit" class="btn btn--yellow">Recevoir mon Diagnostic digital →</button>
@@ -1039,5 +1039,50 @@
     </div>
   </footer>
 
+
+  <!-- ══ ENVOI DES FORMULAIRES VERS BREVO (sans ouvrir de nouvel onglet) ══ -->
+  <script>
+    (function () {
+      function showMerci() {
+        var o = document.getElementById('merci-overlay');
+        if (o) { o.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+      }
+      function setMsg(form, txt) {
+        var m = form.querySelector('.form-msg');
+        if (!m) {
+          m = document.createElement('p');
+          m.className = 'form-msg';
+          m.setAttribute('role', 'alert');
+          m.style.cssText = 'margin-top:10px;font-size:14px;font-weight:600;color:#C62828;';
+          form.appendChild(m);
+        }
+        m.textContent = txt;
+      }
+      document.querySelectorAll('.js-brevo-form').forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var prenom = form.querySelector('[name="PRENOM"]');
+          var email = form.querySelector('[name="EMAIL"]');
+          if (!prenom.value.trim()) { setMsg(form, 'Indique ton prénom.'); prenom.focus(); return; }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { setMsg(form, 'Indique une adresse email valide.'); email.focus(); return; }
+          var btn = form.querySelector('button[type="submit"]');
+          var label = btn.textContent;
+          btn.disabled = true; btn.textContent = 'Envoi en cours…';
+          setMsg(form, '');
+          fetch(form.action + '?isAjax=1', {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(form))
+          })
+          .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
+          .then(function (res) {
+            if (res && res.success) { form.reset(); showMerci(); }
+            else { setMsg(form, 'Ton inscription n\'a pas pu être enregistrée. Vérifie ton adresse email et réessaie.'); }
+          })
+          .catch(function () { setMsg(form, 'Problème de connexion. Réessaie dans un instant.'); })
+          .finally(function () { btn.disabled = false; btn.textContent = label; });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
