@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculateur : devis non relancés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bleu:#0553B0;--navy:#04203F;--cyan:#50C7DD;--jaune:#FCF944;--papier:#F5F7FA;--texte:#04203F;--muted:#4a5f7a;--carte:#ffffff;--bord:#d9e2ee}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--papier:#04203F;--texte:#F5F7FA;--muted:#a9bbd3;--carte:#0a2d57;--bord:#1d4a82}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;background:var(--papier);color:var(--texte);line-height:1.5}
+.bandeau{height:12px;background:var(--jaune)}
+main{max-width:720px;margin:0 auto;padding:28px 16px 56px}
+.kicker{color:var(--bleu);font-weight:600;letter-spacing:.14em;font-size:12px;text-transform:uppercase}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .kicker{color:var(--cyan)}}
+h1{font-size:clamp(26px,6vw,38px);line-height:1.15;margin:8px 0 6px}
+h1 span{background:linear-gradient(transparent 62%,var(--jaune) 62%);padding:0 2px}
+.intro{color:var(--muted);margin:0 0 24px}
+.carte{background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:20px;margin-bottom:18px}
+.champ{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.champ:last-child{margin-bottom:0}
+label{font-weight:600;font-size:15px}
+.aide{font-size:12.5px;color:var(--muted);margin-top:-2px}
+.saisie{display:flex;align-items:center;gap:8px}
+input{font:inherit;font-size:18px;font-weight:600;width:100%;padding:10px 12px;border-radius:10px;border:2px solid var(--bord);background:var(--papier);color:var(--texte)}
+input:focus{outline:3px solid var(--cyan);border-color:var(--bleu)}
+.unite{min-width:46px;color:var(--muted);font-weight:600}
+.resultats{display:grid;gap:10px}
+.ligne{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dashed var(--bord)}
+.ligne:last-child{border-bottom:0}
+.ligne b{font-size:20px;color:var(--bleu);white-space:nowrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ligne b{color:var(--cyan)}}
+.marge{background:var(--jaune);color:var(--navy);border-radius:16px;padding:20px;margin-top:6px}
+.marge .l{font-weight:600;font-size:15px}
+.marge .v{font-weight:700;font-size:clamp(40px,11vw,60px);line-height:1.1}
+.marge .a{font-weight:600;margin-top:6px}
+.note{font-size:13px;color:var(--muted);margin:14px 0 22px}
+.cta{display:block;text-align:center;background:var(--bleu);color:#fff;text-decoration:none;font-weight:600;padding:14px 18px;border-radius:12px}
+.cta:hover{background:var(--navy)}
+.cta small{display:block;font-weight:400;opacity:.85}
+.signature{margin-top:26px;font-size:13px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="bandeau"></div>
+<main>
+  <div class="kicker">AE Web Digital</div>
+  <h1>Combien vous coûtent vos <span>devis non relancés</span> ?</h1>
+  <p class="intro">Renseignez 4 chiffres. Le calcul est une simulation, pas une promesse.</p>
+
+  <section class="carte" aria-label="Vos chiffres">
+    <div class="champ">
+      <label for="montant">Montant moyen d’un devis</label>
+      <div class="saisie"><input id="montant" type="number" inputmode="decimal" min="0" step="50" value="3500"><span class="unite">€</span></div>
+    </div>
+    <div class="champ">
+      <label for="nb">Devis sans relance, par mois</label>
+      <div class="saisie"><input id="nb" type="number" inputmode="numeric" min="0" step="1" value="10"><span class="unite">devis</span></div>
+    </div>
+    <div class="champ">
+      <label for="taux">Signatures en plus grâce au suivi</label>
+      <div class="saisie"><input id="taux" type="number" inputmode="decimal" min="0" max="100" step="1" value="10"><span class="unite">%</span></div>
+      <div class="aide">Hypothèse. Choisissez un taux prudent.</div>
+    </div>
+    <div class="champ">
+      <label for="marge">Votre marge brute</label>
+      <div class="saisie"><input id="marge" type="number" inputmode="decimal" min="0" max="100" step="1" value="35"><span class="unite">%</span></div>
+    </div>
+  </section>
+
+  <section class="carte" aria-live="polite" aria-label="Résultat">
+    <div class="resultats">
+      <div class="ligne"><span>Ventes en plus, par mois</span><b id="ventes">1</b></div>
+      <div class="ligne"><span>Chiffre d’affaires en plus, par mois</span><b id="ca">3 500 €</b></div>
+    </div>
+    <div class="marge">
+      <div class="l">Marge brute en plus, par mois</div>
+      <div class="v" id="marge-mois">1 225 €</div>
+      <div class="a">Sur 12 mois : <span id="marge-an">14 700 €</span></div>
+    </div>
+  </section>
+
+  <p class="note">Calcul : devis sans relance × taux de signature en plus × montant moyen × marge brute. Les résultats dépendent entièrement de vos chiffres et de votre hypothèse.</p>
+
+  <a class="cta" href="https://audit-express-ae-web-digital.vercel.app" target="_blank" rel="noopener">
+    Voir où votre parcours perd des demandes
+    <small>Audit Express : 30 min, visio, gratuit, sans vente</small>
+  </a>
+  <p class="signature">Éric Allain · Consultant en transition numérique pour TPE</p>
+</main>
+<script>
+(function(){
+  var f=function(n,d){return new Intl.NumberFormat('fr-FR',{maximumFractionDigits:d||0}).format(n)};
+  var val=function(id){var v=parseFloat(String(document.getElementById(id).value).replace(',','.'));return isFinite(v)&&v>0?v:0};
+  function calc(){
+    var montant=val('montant'),nb=val('nb'),taux=Math.min(val('taux'),100)/100,marge=Math.min(val('marge'),100)/100;
+    var ventes=nb*taux,ca=ventes*montant,m=ca*marge;
+    document.getElementById('ventes').textContent=f(ventes,1);
+    document.getElementById('ca').textContent=f(ca)+' €';
+    document.getElementById('marge-mois').textContent=f(m)+' €';
+    document.getElementById('marge-an').textContent=f(m*12)+' €';
+  }
+  ['montant','nb','taux','marge'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
+  calc();
+})();
+</script>
+</body>
+</html>
